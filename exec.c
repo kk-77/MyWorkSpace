@@ -18,8 +18,8 @@ int main(int argc, char const *argv[])
         break;
     case 0:
         execlp("ls","-l","-a",NULL);    //NULL表示结束
-        // char *argv[] = {"ls","-l","-a",NULL};
-        // execvp("ls",argv);
+        char *argv[] = {"ls","-l","-a",NULL};
+        execvp("ls",argv);
         break;
     default:
         break;
