@@ -44,22 +44,48 @@ int printSigMask(FILE *of, const char *msg)
     printSigset(of, "\t\t", &currMask);
 }
 
+int printPendingSigs(FILE *of, const char *msg)
+{
+    sigset_t pendingSig;
+
+    if (msg != NULL)
+    {
+        fprintf(of, "%s", msg);
+    }
+
+    if (sigpending(&pendingSig) == -1)
+    {
+        return -1;
+    }
+
+    printSigset(of, "\t\t", &pendingSig);
+}
+
 int main(int argc, char const *argv[])
 {
     int j;
 
-    sigset_t set;
+    sigset_t set, sigpend, sigmask;
 
     sigemptyset(&set);
+    sigemptyset(&sigmask);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGUSR1);
     sigaddset(&set, SIGUSR2);
     printSigset(stdout, "\t\t", &set);
 
     printf("\r\n");
-    // sigpending(&set);        
+    if (sigprocmask(SIG_BLOCK, &set, &sigmask) == -1)
+    {
+        printf("error sigprocmask\r\n");
+    } /*阻塞SIGINT*/
+    //printSigset(stdout, "\t\t", &sigmask);
+    printSigMask(stdout,"GIGMASK");
+
+    printPendingSigs(stdout,"GIGPending");
+    //sigpending(&set);
     //printSigMask(stdout, "SIG");
     // sigdelset(&set, SIGUSR1);
-    printSigset(stdout, "\t\t", &set);
+   // printSigset(stdout, "\t\t", &set);
     return 0;
 }
