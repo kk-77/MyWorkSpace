@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
     printSigMask(stdout,"GIGMASK");
 
     printPendingSigs(stdout,"GIGPending");
-    //sigpending(&set);
+    //sigpending(&set)
     //printSigMask(stdout, "SIG");
     // sigdelset(&set, SIGUSR1);
    // printSigset(stdout, "\t\t", &set);
