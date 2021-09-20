@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*实现Hash简单功能*/
+/*实现Hash简单功能 bug:内存泄露  整体的哈西结构是差不多的*/
 
 #define BUCKETCOUNT 16 /*桶数量*/
 
